@@ -4,44 +4,38 @@ arya affif ramadhani
 
 ## Unit Testing - Design for Testability
 
-Bagian ini dibuat untuk dokumentasi tugas individu mata kuliah Design for Testability dan Unit Testing.
+Untuk tugas individu ini saya menambahkan unit test sederhana pada bagian badge keranjang.
 
-### Fitur/function yang diuji
+### Bagian yang diuji
 
-Function yang diuji adalah `updateCartBadge()` pada file `assets/js/app.js`.
+- File: `assets/js/app.js`
+- Function: `updateCartBadge()`
 
-Function ini bertugas membaca data keranjang dari `localStorage`, menghitung total `qty`, lalu menampilkan atau menyembunyikan badge keranjang pada elemen `#cartBadge`.
+Function ini membaca data `cart` dari `localStorage`, menjumlahkan semua `qty`, lalu mengatur tampilan badge keranjang di elemen `#cartBadge`.
 
-### Jenis test double yang digunakan
+Saya memilih bagian ini karena logic-nya kecil, tidak perlu login, tidak perlu backend, dan tidak perlu mengubah alur utama aplikasi.
 
-Test double yang digunakan adalah **stub** untuk `localStorage.getItem`.
+### Test double
 
-### Alasan menggunakan test double
+Test double yang digunakan adalah **stub** pada `localStorage.getItem`.
 
-`updateCartBadge()` bergantung pada data dari `localStorage`. Agar unit test tidak bergantung pada isi storage browser yang asli, `localStorage.getItem` dibuat sebagai stub sehingga test bisa mengatur sendiri isi cart untuk setiap skenario.
-
-Dengan cara ini, test menjadi lebih terisolasi, mudah diulang, dan cocok untuk prinsip Design for Testability.
+Stub ini dipakai supaya isi cart bisa ditentukan langsung dari file test. Jadi test tidak bergantung pada data yang sedang tersimpan di browser asli. Ini juga membuat test lebih mudah dijalankan ulang dengan hasil yang sama.
 
 ### Daftar test case
 
-1. Cart berisi item dengan `qty` 2 dan 3.
-   - Hasil yang diharapkan: badge menampilkan angka `5` dan class `hidden` dihapus.
-
-2. Cart kosong.
-   - Hasil yang diharapkan: badge tetap disembunyikan dengan class `hidden`.
-
-3. Data cart rusak atau bukan JSON valid.
-   - Hasil yang diharapkan: function tidak error dan badge disembunyikan.
+1. Cart berisi item dengan `qty` 2 dan 3. Hasilnya badge harus menampilkan angka `5`.
+2. Cart kosong. Hasilnya badge tetap disembunyikan.
+3. Data cart rusak atau bukan JSON valid. Hasilnya function tidak error dan badge tetap disembunyikan.
 
 ### Cara menjalankan unit test
 
-Jalankan command berikut dari root project:
+Jalankan dari root project:
 
 ```bash
 npm.cmd test
 ```
 
-Jika menggunakan terminal yang tidak bermasalah dengan execution policy, command berikut juga bisa digunakan:
+Kalau terminal bisa menjalankan npm langsung, command ini juga bisa dipakai:
 
 ```bash
 npm test
@@ -49,7 +43,7 @@ npm test
 
 ### Hasil yang diharapkan
 
-Output test yang diharapkan:
+Hasil yang diharapkan di terminal:
 
 ```text
 Test Files  1 passed
@@ -58,25 +52,25 @@ Tests       3 passed
 
 ### Catatan tugas individu
 
-Unit test ini dibuat sebagai tambahan individu untuk memenuhi tugas Design for Testability dan Unit Testing. Test berfokus pada satu function yang kecil, aman diuji, dan tidak mengubah fitur utama aplikasi.
+Unit test ini saya buat sebagai bagian individu untuk tugas Design for Testability dan Unit Testing. Test hanya fokus ke satu function supaya mudah dijelaskan dan tidak mengubah fitur utama aplikasi.
 
 ### Bukti hasil unit test
 
-Riwayat pengujian unit test di GitHub dapat dilihat melalui GitHub Actions pada workflow **Unit Test** setelah branch ini di-push ke GitHub:
+Riwayat test di GitHub bisa dilihat dari workflow **Unit Test** setelah branch ini di-push:
 
 ```text
 https://github.com/xrgsss/persela-store/actions/workflows/unit-test.yml
 ```
 
-Screenshot hasil unit test disimpan di folder `screenshots/`. Nama file yang disarankan:
+Screenshot hasil test disimpan di folder `screenshots/`. Nama file yang dipakai:
 
 ```text
 screenshots/hasil-unit-test.png
 ```
 
-Cara mengambil screenshot hasil unit test:
+Cara menyiapkan screenshot:
 
-1. Jalankan unit test dari terminal:
+1. Jalankan test dari terminal:
 
 ```bash
 npm.cmd test
@@ -89,18 +83,18 @@ Test Files  1 passed
 Tests       3 passed
 ```
 
-3. Ambil screenshot terminal tersebut menggunakan fitur screenshot di sistem operasi.
+3. Ambil screenshot terminal tersebut.
 
-4. Simpan gambar asli ke folder `screenshots/` dengan nama:
+4. Simpan gambar ke folder `screenshots/` dengan nama:
 
 ```text
 hasil-unit-test.png
 ```
 
-5. Commit dan push file screenshot tersebut ke branch tugas. Setelah itu, link GitHub gambar dapat menggunakan format:
+5. Commit dan push screenshot tersebut. Link gambar di GitHub nantinya:
 
 ```text
 https://github.com/xrgsss/persela-store/blob/tugas-unit-test-design-for-testability/screenshots/hasil-unit-test.png
 ```
 
-Catatan: screenshot harus berasal dari hasil test yang benar-benar dijalankan, bukan gambar contoh atau screenshot palsu.
+Catatan: screenshot harus berasal dari hasil test yang benar-benar dijalankan sendiri, bukan gambar contoh.
