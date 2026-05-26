@@ -59,3 +59,48 @@ Tests       3 passed
 ### Catatan tugas individu
 
 Unit test ini dibuat sebagai tambahan individu untuk memenuhi tugas Design for Testability dan Unit Testing. Test berfokus pada satu function yang kecil, aman diuji, dan tidak mengubah fitur utama aplikasi.
+
+### Bukti hasil unit test
+
+Riwayat pengujian unit test di GitHub dapat dilihat melalui GitHub Actions pada workflow **Unit Test** setelah branch ini di-push ke GitHub:
+
+```text
+https://github.com/xrgsss/persela-store/actions/workflows/unit-test.yml
+```
+
+Screenshot hasil unit test disimpan di folder `screenshots/`. Nama file yang disarankan:
+
+```text
+screenshots/hasil-unit-test.png
+```
+
+Cara mengambil screenshot hasil unit test:
+
+1. Jalankan unit test dari terminal:
+
+```bash
+npm.cmd test
+```
+
+2. Pastikan hasil terminal menunjukkan:
+
+```text
+Test Files  1 passed
+Tests       3 passed
+```
+
+3. Ambil screenshot terminal tersebut menggunakan fitur screenshot di sistem operasi.
+
+4. Simpan gambar asli ke folder `screenshots/` dengan nama:
+
+```text
+hasil-unit-test.png
+```
+
+5. Commit dan push file screenshot tersebut ke branch tugas. Setelah itu, link GitHub gambar dapat menggunakan format:
+
+```text
+https://github.com/xrgsss/persela-store/blob/tugas-unit-test-design-for-testability/screenshots/hasil-unit-test.png
+```
+
+Catatan: screenshot harus berasal dari hasil test yang benar-benar dijalankan, bukan gambar contoh atau screenshot palsu.
