@@ -10,3 +10,7 @@ arkan alsafi sulaksono
 - **Fungsi:** `updateCartBadge()`
 - **Deskripsi:** Fungsi untuk mengambil data keranjang dari `localStorage` dan memperbarui teks jumlah barang pada elemen badge di halaman web.
 
+### 2. Strategi Pengujian & Test Double
+- **Jenis Test Double:** **Stub** pada fungsi `localStorage.getItem`.
+- **Alasan:** Memotong dependensi langsung ke browser. Dengan stub, kita bisa memalsukan data isi keranjang (*canned data*) agar pengujian berjalan secara terisolasi dan mandiri (deterministik).
+- **Environment:** Vitest + jsdom.
