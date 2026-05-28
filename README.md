@@ -14,3 +14,9 @@ arkan alsafi sulaksono
 - **Jenis Test Double:** **Stub** pada fungsi `localStorage.getItem`.
 - **Alasan:** Memotong dependensi langsung ke browser. Dengan stub, kita bisa memalsukan data isi keranjang (*canned data*) agar pengujian berjalan secara terisolasi dan mandiri (deterministik).
 - **Environment:** Vitest + jsdom.
+
+### 3. Cara Menjalankan Unit Testing
+Untuk menjalankan pengujian ini secara lokal, pastikan sudah menginstal dependensi lalu jalankan perintah:
+```bash
+npm install
+npx vitest run
