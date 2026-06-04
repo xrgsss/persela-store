@@ -98,3 +98,7 @@ https://github.com/xrgsss/persela-store/blob/tugas-unit-test-design-for-testabil
 ```
 
 Catatan: screenshot harus berasal dari hasil test yang benar-benar dijalankan sendiri, bukan gambar contoh.
+
+### 1. Catatan Perbaikan Jalur Pipa CI (Troubleshooting Log)
+- **Masalah:** Otomatisasi GitHub Actions sempat mengalami kegagalan (`exit code 1`) akibat terdeteksinya berkas pengujian usang di luar lingkup tugas yang tidak kompatibel dengan lingkungan Vitest modern.
+- **Solusi/Resolusi:** Melakukan pembaruan pada `vitest.config.js` dengan menerapkan properti `include` secara ketat. Pengujian kini diisolasi penuh hanya pada direktori `assets/js/`, memastikan stabilitas integrasi pipa tanpa intervensi kode legacy.
