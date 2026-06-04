@@ -1,8 +1,3 @@
-- name: Setup Node.js Environment
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-        cache: 'npm' # <-- Tambahkan baris ini untuk mempercepat pipeline CI
 name: Unit Testing Automation
 
 on:
@@ -14,4 +9,18 @@ on:
 jobs:
   run-tests:
     runs-on: ubuntu-latest
-# ... (sisa kode di bawahnya biarkan tetap sama)
+
+    steps:
+    - name: Checkout Repository Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Install Project Dependencies
+      run: npm install --no-audit --no-fund
+
+    - name: Execute Vitest Suites
+      run: npx vitest run
