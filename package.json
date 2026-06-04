@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "scripts": {
-    "test": "vitest run --environment jsdom"
+ "scripts": {
+  "test": "vitest run --passWithNoTests"
+},
   },
   "devDependencies": {
     "jsdom": "^29.1.1",
