@@ -38,5 +38,12 @@ Langkah ini bertujuan untuk meningkatkan nilai *readability* (kemudahan kode unt
 
 Sistem di server GitHub akan otomatis membuat lingkungan virtual Node.js, menginstal seluruh dependensi projek, dan langsung mengeksekusi perintah `npx vitest run`. Hal ini menjamin kode yang masuk ke fase produksi selalu dalam kondisi valid dan lolos uji.
 
+## 🧪 Laporan Pengujian Perangkat Lunak (Branch Tugas)
+
+### 1. Komponen & Strategi Test Double
+- **Komponen:** Fungsi `updateCartBadge()` pada file `assets/js/app.js`.
+- **Metode:** Unit Testing menggunakan **Vitest** dan lingkungan **jsdom**.
+- **Test Double:** Menggunakan **Stub** pada `localStorage.getItem` untuk memotong dependensi browser asli agar pengujian berjalan secara terisolasi dan deterministik.
+
 npm install
 npx vitest run
