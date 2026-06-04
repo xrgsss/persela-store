@@ -3,3 +3,15 @@
       with:
         node-version: 20
         cache: 'npm' # <-- Tambahkan baris ini untuk mempercepat pipeline CI
+name: Unit Testing Automation
+
+on:
+  push:
+    branches: [ tugas-unit-test-design-for-testability ]
+  pull_request:
+    branches: [ tugas-unit-test-design-for-testability ]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+# ... (sisa kode di bawahnya biarkan tetap sama)
