@@ -18,5 +18,10 @@ arkan alsafi sulaksono
 ### 3. Cara Menjalankan Unit Testing
 Untuk menjalankan pengujian ini secara lokal, pastikan sudah menginstal dependensi lalu jalankan perintah:
 ```bash
+
+### 4. Refactoring & Pemeliharaan Kode (Code Maintainability)
+Untuk menjaga kualitas kode agar tetap bersih (*Clean Code*) sesuai dengan prinsip Desain Perangkat Lunak, dilakukan proses refactoring pada file pengujian:
+- **Ekstraksi Konstanta:** Data buatan (*fake data*) untuk kondisi normal dan kondisi *corrupt* dipisahkan ke dalam variabel konstanta di luar fungsi test.
+
 npm install
 npx vitest run
