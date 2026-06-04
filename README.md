@@ -27,6 +27,11 @@ Untuk menjaga kualitas kode agar tetap bersih (*Clean Code*) sesuai dengan prins
 Untuk memastikan bahwa setiap perubahan kode di masa mendatang tidak merusak fungsi yang sudah ada (*regression*), repositori ini telah dikonfigurasi dengan **GitHub Actions (CI)**:
 - **Pipeline Otomatis:** File `.github/workflows/vitest.yml` akan mendeteksi setiap aktivitas `push` atau `pull request` ke branch `main`.
 
+### 6. Standarisasi Lingkungan & Defensive Testing Lanjutan
+- **Vitest Configuration:** Penambahan berkas `vitest.config.js` secara eksplisit menetapkan `environment: 'jsdom'` agar eksekusi pengujian DOM berjalan seragam di semua environment komputer pengembang.
+
+- **Validasi Nilai Input (`NaN` Handling):** Penambahan pengujian aspek *robustness* untuk menangani manipulasi objek `cart` ilegal di sisi klien, memastikan fungsi kalkulasi menggunakan pertahanan `parseInt` dan `isNaN` sebelum merender ke antarmuka pengguna.
+
 Langkah ini bertujuan untuk meningkatkan nilai *readability* (kemudahan kode untuk dibaca) dan mempermudah pemeliharaan jangka panjang (*maintainability*) apabila di kemudian hari struktur data keranjang belanja mengalami perubahan.
 
 Sistem di server GitHub akan otomatis membuat lingkungan virtual Node.js, menginstal seluruh dependensi projek, dan langsung mengeksekusi perintah `npx vitest run`. Hal ini menjamin kode yang masuk ke fase produksi selalu dalam kondisi valid dan lolos uji.
