@@ -29,5 +29,7 @@ Untuk memastikan bahwa setiap perubahan kode di masa mendatang tidak merusak fun
 
 Langkah ini bertujuan untuk meningkatkan nilai *readability* (kemudahan kode untuk dibaca) dan mempermudah pemeliharaan jangka panjang (*maintainability*) apabila di kemudian hari struktur data keranjang belanja mengalami perubahan.
 
+Sistem di server GitHub akan otomatis membuat lingkungan virtual Node.js, menginstal seluruh dependensi projek, dan langsung mengeksekusi perintah `npx vitest run`. Hal ini menjamin kode yang masuk ke fase produksi selalu dalam kondisi valid dan lolos uji.
+
 npm install
 npx vitest run
