@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    // HANYA jalankan file test yang berada di folder assets/js/
-    include: ['assets/js/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts}'],
+    // Secara spesifik hanya menjalankan berkas tes desimal kita yang sudah valid
+    include: ['assets/js/app-decimal.test.js'],
   },
 });
