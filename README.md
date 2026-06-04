@@ -23,6 +23,10 @@ Untuk menjalankan pengujian ini secara lokal, pastikan sudah menginstal dependen
 Untuk menjaga kualitas kode agar tetap bersih (*Clean Code*) sesuai dengan prinsip Desain Perangkat Lunak, dilakukan proses refactoring pada file pengujian:
 - **Ekstraksi Konstanta:** Data buatan (*fake data*) untuk kondisi normal dan kondisi *corrupt* dipisahkan ke dalam variabel konstanta di luar fungsi test.
 
+### 5. Otomatisasi Pengujian (Continuous Integration)
+Untuk memastikan bahwa setiap perubahan kode di masa mendatang tidak merusak fungsi yang sudah ada (*regression*), repositori ini telah dikonfigurasi dengan **GitHub Actions (CI)**:
+- **Pipeline Otomatis:** File `.github/workflows/vitest.yml` akan mendeteksi setiap aktivitas `push` atau `pull request` ke branch `main`.
+
 Langkah ini bertujuan untuk meningkatkan nilai *readability* (kemudahan kode untuk dibaca) dan mempermudah pemeliharaan jangka panjang (*maintainability*) apabila di kemudian hari struktur data keranjang belanja mengalami perubahan.
 
 npm install
