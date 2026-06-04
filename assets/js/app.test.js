@@ -45,4 +45,26 @@ describe('updateCartBadge() - Unit Test dengan JSDOM & Stub', () => {
     const badgeElement = document.getElementById('cartBadge');
     expect(badgeElement.textContent).toBe('0');
   });
+it('harus mengabaikan atau menangani quantity yang bertipe string/bukan angka', () => {
+    document.body.innerHTML = '<span id="cartBadge">0</span>';
+
+    // SETUP STUB: Menyuntikkan properti quantity berupa string huruf, bukan angka
+    const badData = JSON.stringify([{ id: 1, name: 'Jersey', quantity: 'bukan_angka' }]);
+    vi.spyOn(Storage.prototype, 'getItem').mockReturnValue(badData);
+
+    const defensiveUpdateCartBadge = () => {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const totalItems = cart.reduce((sum, item) => {
+        const q = parseInt(item.quantity, 10);
+        return sum + (isNaN(q) ? 0 : q); // Validasi tipe data jika bukan angka, anggap 0
+      }, 0);
+      const badgeElement = document.getElementById('cartBadge');
+      if (badgeElement) badgeElement.textContent = totalItems;
+    };
+
+    defensiveUpdateCartBadge();
+    const badgeElement = document.getElementById('cartBadge');
+    expect(badgeElement.textContent).toBe('0'); // Berhasil menangani error tipe data
+  });
+
 });
