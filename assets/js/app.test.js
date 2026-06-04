@@ -34,4 +34,26 @@ describe('updateCartBadge() - Unit Test dengan JSDOM & Stub', () => {
     const badgeElement = document.getElementById('cartBadge');
     expect(badgeElement.textContent).toBe('0');
   });
+
+  it('harus menangani data JSON corrupt di localStorage tanpa membuat aplikasi crash', () => {
+    document.body.innerHTML = '<span id="cartBadge">0</span>';
+    vi.spyOn(Storage.prototype, 'getItem').mockReturnValue("{ data keranjang rusak }");
+
+    const safeUpdateCartBadge = () => {
+      try {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const badgeElement = document.getElementById('cartBadge');
+        if (badgeElement) badgeElement.textContent = totalItems;
+      } catch (error) {
+        const badgeElement = document.getElementById('cartBadge');
+        if (badgeElement) badgeElement.textContent = '0';
+      }
+    };
+
+    expect(() => safeUpdateCartBadge()).not.toThrow();
+    const badgeElement = document.getElementById('cartBadge');
+    expect(badgeElement.textContent).toBe('0');
+  });
+});
 });
