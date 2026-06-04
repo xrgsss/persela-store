@@ -23,5 +23,7 @@ Untuk menjalankan pengujian ini secara lokal, pastikan sudah menginstal dependen
 Untuk menjaga kualitas kode agar tetap bersih (*Clean Code*) sesuai dengan prinsip Desain Perangkat Lunak, dilakukan proses refactoring pada file pengujian:
 - **Ekstraksi Konstanta:** Data buatan (*fake data*) untuk kondisi normal dan kondisi *corrupt* dipisahkan ke dalam variabel konstanta di luar fungsi test.
 
+Langkah ini bertujuan untuk meningkatkan nilai *readability* (kemudahan kode untuk dibaca) dan mempermudah pemeliharaan jangka panjang (*maintainability*) apabila di kemudian hari struktur data keranjang belanja mengalami perubahan.
+
 npm install
 npx vitest run
