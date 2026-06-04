@@ -1,33 +1,43 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-function safeUpdateCartBadge() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const totalItems = cart.reduce((sum, item) => {
-    // Memastikan jika ada input desimal, dibulatkan ke bawah dengan Math.floor atau parseInt
-    const q = Math.floor(parseFloat(item.quantity)) || 0;
-    return sum + q;
-  }, 0);
-  const badgeElement = document.getElementById('cartBadge');
-  if (badgeElement) badgeElement.textContent = totalItems;
+// Fungsi kalkulasi mandiri yang aman dari segala bentuk data aneh (Desimal, Null, atau Corrupt)
+function sdmCartCalculator() {
+  try {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (!Array.isArray(cart)) return '0';
+    
+    const totalItems = cart.reduce((sum, item) => {
+      // Antisipasi jika quantity bernilai desimal, tulisan huruf, atau minus
+      const q = Math.floor(parseFloat(item.quantity)) || 0;
+      return sum + (q < 0 ? 0 : q);
+    }, 0);
+    
+    return String(totalItems);
+  } catch (e) {
+    return '0'; // Fallback aman jika data JSON rusak total
+  }
 }
 
-describe('Data Integrity Test - Penanganan Angka Desimal', () => {
+describe('Pengujian Integritas Data - Persela Store', () => {
   beforeEach(() => {
-    document.body.innerHTML = '<span id="cartBadge">0</span>';
     vi.restoreAllMocks();
   });
 
-  it('harus membulatkan nilai quantity desimal ke bawah demi integritas data UI', () => {
+  it('harus membulatkan nilai quantity desimal ke bawah demi integritas data', () => {
     const decimalData = JSON.stringify([
-      { id: 1, name: 'Jersey Persela', quantity: 2.7 }, // Desimal pecahan
+      { id: 1, name: 'Jersey Persela', quantity: 2.7 },
       { id: 2, name: 'Syal Persela', quantity: 1.2 }
     ]);
     vi.spyOn(Storage.prototype, 'getItem').mockReturnValue(decimalData);
 
-    safeUpdateCartBadge();
+    const result = sdmCartCalculator();
+    expect(result).toBe('3'); // 2 + 1 = 3
+  });
 
-    const badgeElement = document.getElementById('cartBadge');
-    // Hasil harus 3 (dari pembulatan 2 + 1), bukan 3.9 yang bisa merusak tampilan HTML
-    expect(badgeElement.textContent).toBe('3');
+  it('harus mengembalikan "0" jika data localStorage corrupt atau rusak', () => {
+    vi.spyOn(Storage.prototype, 'getItem').mockReturnValue("{ data acak rusak }");
+    
+    const result = sdmCartCalculator();
+    expect(result).toBe('0'); // Aman tidak membuat server crash
   });
 });
