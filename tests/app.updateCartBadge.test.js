@@ -1,60 +1,68 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 
-async function loadAppWithCartStorage(cartValue) {
-  document.body.innerHTML = '<span id="cartBadge" class="hidden"></span>';
+const setupCartBadgeTest = async (cartData) => {
+  document.body.innerHTML = `
+    <span id="cartBadge" class="hidden"></span>
+  `;
 
-  // Test double: stub localStorage.getItem agar test bisa mengontrol isi cart.
-  const getItemStub = vi.spyOn(Storage.prototype, 'getItem').mockImplementation((key) => {
-    if (key === 'cart') return cartValue;
-    return null;
-  });
+  const localStorageMock = vi
+    .spyOn(Storage.prototype, 'getItem')
+    .mockImplementation((key) => {
+      return key === 'cart' ? cartData : null;
+    });
 
   await import('../assets/js/app.js');
 
   return {
-    cartBadge: document.getElementById('cartBadge'),
-    getItemStub
+    badge: document.querySelector('#cartBadge'),
+    localStorageMock,
   };
-}
+};
 
-describe('updateCartBadge', () => {
+describe('Fitur badge keranjang', () => {
   beforeEach(() => {
     vi.resetModules();
-    delete window.updateCartBadge;
     document.body.innerHTML = '';
+    delete window.updateCartBadge;
   });
 
   afterEach(() => {
     vi.restoreAllMocks();
     localStorage.clear();
-    delete window.updateCartBadge;
     document.body.innerHTML = '';
+    delete window.updateCartBadge;
   });
 
-  it('menampilkan total qty cart pada badge', async () => {
-    const { cartBadge, getItemStub } = await loadAppWithCartStorage(
-      JSON.stringify([{ qty: 2 }, { qty: 3 }])
-    );
+  it('menampilkan jumlah seluruh produk di keranjang', async () => {
+    const dataKeranjang = JSON.stringify([
+      { qty: 2 },
+      { qty: 3 },
+    ]);
+
+    const { badge, localStorageMock } = await setupCartBadgeTest(dataKeranjang);
 
     window.updateCartBadge();
 
-    expect(getItemStub).toHaveBeenCalledWith('cart');
-    expect(cartBadge.textContent).toBe('5');
-    expect(cartBadge.classList.contains('hidden')).toBe(false);
+    expect(localStorageMock).toHaveBeenCalledWith('cart');
+    expect(badge.textContent).toBe('5');
+    expect(badge.classList.contains('hidden')).toBe(false);
   });
 
-  it('menyembunyikan badge ketika cart kosong', async () => {
-    const { cartBadge } = await loadAppWithCartStorage('[]');
+  it('menyembunyikan badge jika keranjang tidak memiliki item', async () => {
+    const { badge } = await setupCartBadgeTest('[]');
 
     window.updateCartBadge();
 
-    expect(cartBadge.classList.contains('hidden')).toBe(true);
+    expect(badge.classList.contains('hidden')).toBe(true);
   });
 
-  it('menyembunyikan badge ketika data cart rusak', async () => {
-    const { cartBadge } = await loadAppWithCartStorage('{cart-rusak');
+  it('tetap aman ketika data cart di localStorage tidak valid', async () => {
+    const { badge } = await setupCartBadgeTest('{data-tidak-valid');
 
-    expect(() => window.updateCartBadge()).not.toThrow();
-    expect(cartBadge.classList.contains('hidden')).toBe(true);
+    expect(() => {
+      window.updateCartBadge();
+    }).not.toThrow();
+
+    expect(badge.classList.contains('hidden')).toBe(true);
   });
 });
