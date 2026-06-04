@@ -1,7 +1,9 @@
-mukhammad rangga hari febrianto
-reyhan alfin poko
-arya affif ramadhani
-arkan alsafi sulaksono
+Nama Kelompok
+
+Arkan Alsafi Sulaksono - 202210370311130
+Reyhan Alfin Poki - 202310370311167
+Mukhammad Rangga Hari Febrianto - 202310370311125
+Arya Affif Ramadhani - 202310370311411
 
 ## 🧪 Laporan Pengujian Perangkat Lunak (Tugas DPL)
 
