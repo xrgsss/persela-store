@@ -45,5 +45,12 @@ Sistem di server GitHub akan otomatis membuat lingkungan virtual Node.js, mengin
 - **Metode:** Unit Testing menggunakan **Vitest** dan lingkungan **jsdom**.
 - **Test Double:** Menggunakan **Stub** pada `localStorage.getItem` untuk memotong dependensi browser asli agar pengujian berjalan secara terisolasi dan deterministik.
 
+### 2. Cara Menjalankan Pengujian
+Pastikan dependensi proyek sudah terinstal, lalu jalankan perintah otomatisasi pengujian via terminal:
+```bash
+
+npm install
+npx vitest run
+
 npm install
 npx vitest run
